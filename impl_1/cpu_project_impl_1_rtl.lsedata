@@ -1,4 +1,4 @@
-<top name = "alu"  library = "work"  arch = "RTL"  entry = "VHDL">
+<top name = "alu_testbench"  library = "work"  arch = "RTL"  entry = "VHDL">
 
 <clocks>
 </clocks>

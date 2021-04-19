@@ -5,7 +5,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
-Mon Apr 19 14:32:45 2021
+Mon Apr 19 17:22:14 2021
 
 
 Command Line:  synthesis -f cpu_project_impl_1_lattice.synproj -gui -msgset /home/es4user/Documents/radiant-designs/cpu_project/promote.xml 
@@ -38,7 +38,7 @@ The -p option is iCE40UP5K.
 
 INFO - synthesis: User-Selected Strategy Settings
 Optimization goal = Area
-Top-level module name = alu.
+Top-level module name = alu_testbench.
 Target frequency = 1.000000 MHz.
 Maximum fanout = 1000.
 Timing path count = 3
@@ -80,6 +80,8 @@ VHDL library = work
 VHDL design file = /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd
 VHDL library = work
 VHDL design file = /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd
+VHDL library = work
+VHDL design file = /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd
 The -r option is OFF. [ Remove LOC Properties is OFF. ]
 Compile design.
 Compile Design Begin
@@ -132,4 +134,96 @@ Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/i
 
 INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd(5): analyzing entity programcounter. VHDL-1012
 INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd(15): analyzing architecture synth. VHDL-1010
-ERROR - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd(26): type error near branchaddr  expected type unsigned. VHDL-1272
+Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd. VHDL-1481
+Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd
+
+INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(5): analyzing entity alu_testbench. VHDL-1012
+INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(9): analyzing architecture sim. VHDL-1010
+INFO - synthesis: The default VHDL library search path is now "/home/es4user/Documents/radiant-designs/cpu_project/impl_1". VHDL-1504
+Top module language type = VHDL.
+unit alu_testbench is not yet analyzed. VHDL-1485
+Top module name (VHDL, mixed language): alu_testbench
+                                                         
+
+
+### Number of Logic Cells: 5280
+
+
+### Number of RAM Blocks: 30
+
+
+### Number of DSP Blocks: 8
+
+
+### Number of PLLs: 1
+
+
+### Number of IO Pins: 56
+
+
+##########################################################
+
+
+                                                         
+
+
+WARNING - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(17): net arith_full_result[32] does not have a driver. VDB-1002
+######## Missing driver on net \dut/arith_full_result[31]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[30]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[29]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[28]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[27]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[26]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[25]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[24]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[23]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[22]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[21]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[20]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[19]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[18]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[17]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[16]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[15]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[14]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[13]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[12]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[11]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[10]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[9]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[8]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[7]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[6]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[5]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[4]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[3]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[2]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[1]. Patching with GND.
+######## Missing driver on net \dut/arith_full_result[0]. Patching with GND.
+
+
+
+
+################### Begin Area Report (alu_testbench)######################
+Number of register bits => 0 of 5280 (0 % )
+OB => 1
+################### End Area Report ##################
+Number of odd-length carry chains : 0
+Number of even-length carry chains : 0
+
+################### Begin Clock Report ######################
+Clock Nets
+Number of Clocks: 0
+Clock Enable Nets
+Number of Clock Enables: 0
+Highest fanout non-clock nets
+Top 10 highest fanout non-clock nets:
+  Net : passed, loads : 0
+################### End Clock Report ##################
+
+Peak Memory Usage: 293 MB
+
+--------------------------------------------------------------
+Total CPU Time: 1 secs 
+Total REAL Time: 2 secs 
+--------------------------------------------------------------

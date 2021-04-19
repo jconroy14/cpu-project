@@ -1,6 +1,6 @@
 Lattice Timing Report -  Setup  and Hold, Version Radiant Software (64-bit) 2.2.0.97.3
 
-Mon Apr 19 01:13:39 2021
+Mon Apr 19 17:22:16 2021
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -11,7 +11,7 @@ Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
 Command line:    timing -sethld -v 10 -u 10 -endpoints 10 -nperend 1 -html -rpt cpu_project_impl_1.tws cpu_project_impl_1_syn.udb -gui
 
 -----------------------------------------
-Design:          alu
+Design:          alu_testbench
 Family:          iCE40UP
 Device:          iCE40UP5K
 Package:         SG48
@@ -126,24 +126,9 @@ create_clock,
 create_generated_clock,
 ...
 
--------------------------------------------------------------------
-     Listing 10 Start or End Points     |           Type           
--------------------------------------------------------------------
-result[31]                              |                    output
-result[30]                              |                    output
-result[29]                              |                    output
-result[28]                              |                    output
-result[27]                              |                    output
-result[26]                              |                    output
-result[25]                              |                    output
-result[24]                              |                    output
-result[23]                              |                    output
-result[22]                              |                    output
--------------------------------------------------------------------
-                                        |                          
-Number of I/O ports without constraint  |                        35
-                                        |                          
--------------------------------------------------------------------
+--------------------------------------------------
+There is no end point satisfying reporting criteria
+
 
 Registers without clock definition
 Define the clock for these registers.

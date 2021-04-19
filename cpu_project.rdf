@@ -2,12 +2,15 @@
 <RadiantProject version="4.1" title="cpu_project" device="iCE40UP5K-SG48I" performance_grade="High-Performance_1.2V" default_implementation="impl_1">
     <Options/>
     <Implementation title="impl_1" dir="impl_1" description="impl_1" synthesis="lse" default_strategy="Strategy1">
-        <Options def_top="alu"/>
+        <Options top="alu_testbench"/>
         <Source name="source/impl_1/alu.vhd" type="VHDL" type_short="VHDL">
-            <Options top_module="alu"/>
+            <Options/>
         </Source>
         <Source name="source/impl_1/programcounter.vhd" type="VHDL" type_short="VHDL">
             <Options/>
+        </Source>
+        <Source name="source/impl_1/alu_testbench.vhd" type="VHDL" type_short="VHDL">
+            <Options top_module="alu_testbench"/>
         </Source>
     </Implementation>
     <Strategy name="Strategy1" file="cpu_project1.sty"/>
