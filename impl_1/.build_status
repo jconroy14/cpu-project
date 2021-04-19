@@ -15,11 +15,11 @@
             <Task name="PARTrace" build_result="0" update_result="3" update_time="0"/>
             <Task name="IOTiming" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Synthesis" build_result="2" build_time="1618809219">
-            <Task name="Lattice_Synthesis" build_result="2" update_result="0" update_time="1618809219"/>
-            <Task name="LSE_Compile" build_result="2" update_result="0" update_time="1618809220"/>
-            <Task name="SynTrace" build_result="2" update_result="0" update_time="1618809220"/>
-            <Task name="SynVerilogSimFile" build_result="0" update_result="2" update_time="1618806131"/>
+        <Milestone name="Synthesis" build_result="0" build_time="1618857256">
+            <Task name="Lattice_Synthesis" build_result="0" update_result="2" update_time="1618857256"/>
+            <Task name="LSE_Compile" build_result="0" update_result="2" update_time="1618857168"/>
+            <Task name="SynTrace" build_result="0" update_result="2" update_time="1618857086"/>
+            <Task name="SynVerilogSimFile" build_result="0" update_result="2" update_time="1618857086"/>
         </Milestone>
         <Report name="cpu_project_impl_1.lsedata" last_build_time="0" last_build_size="0"/>
         <Report name="cpu_project_impl_1.tws.html" last_build_time="1618809220" last_build_size="11169"/>

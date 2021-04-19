@@ -1,0 +1,6 @@
+#Start recording tcl command: 4/19/2021 14:30:58
+#Project Location: /home/es4user/Documents/radiant-designs/cpu_project; Project name: cpu_project
+prj_open "/home/es4user/Documents/radiant-designs/cpu_project/cpu_project.rdf"
+prj_add_source "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd"
+prj_run Synthesis -impl impl_1
+#Stop recording: 4/19/2021 14:38:13

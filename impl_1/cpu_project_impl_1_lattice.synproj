@@ -37,6 +37,7 @@
 -ver "/home/es4user/tools/radiant/2.2/ip/pmi/pmi_iCE40UP.v"
 -lib pmi -vhd "/home/es4user/tools/radiant/2.2/ip/pmi/pmi_iCE40UP.vhd"
 -lib "work" -vhd "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd"
+"/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd"
 
 
 -top alu

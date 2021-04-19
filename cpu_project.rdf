@@ -6,6 +6,9 @@
         <Source name="source/impl_1/alu.vhd" type="VHDL" type_short="VHDL">
             <Options top_module="alu"/>
         </Source>
+        <Source name="source/impl_1/programcounter.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
     </Implementation>
     <Strategy name="Strategy1" file="cpu_project1.sty"/>
 </RadiantProject>
