@@ -1,0 +1,10 @@
+----------------------------------------------------------------------
+Report for cell alu.TECH
+Register bits:  0 of 5280 (0.000%)
+I/O cells:      104
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                                 IB        68          100.0
+                               LUT4       111          100.0
+                                 OB        36          100.0
+                              TOTAL       215
