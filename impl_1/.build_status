@@ -15,16 +15,17 @@
             <Task name="PARTrace" build_result="0" update_result="3" update_time="0"/>
             <Task name="IOTiming" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Synthesis" build_result="0" build_time="1618869900">
-            <Task name="Lattice_Synthesis" build_result="0" update_result="2" update_time="1618869900"/>
-            <Task name="LSE_Compile" build_result="0" update_result="2" update_time="1618869900"/>
+        <Milestone name="Synthesis" build_result="1" build_time="1618872298">
+            <Task name="Lattice_Synthesis" build_result="1" update_result="2" update_time="1618872298"/>
+            <Task name="LSE_Compile" build_result="0" update_result="2" update_time="1618872298"/>
             <Task name="SynTrace" build_result="0" update_result="2" update_time="1618869900"/>
             <Task name="SynVerilogSimFile" build_result="0" update_result="2" update_time="1618867125"/>
         </Milestone>
         <Milestone name="TOOL_Report" build_result="0" build_time="0"/>
         <Report name="cpu_project_impl_1.lsedata" last_build_time="0" last_build_size="0"/>
         <Report name="cpu_project_impl_1.tws.html" last_build_time="1618867336" last_build_size="10059"/>
-        <Report name="cpu_project_impl_1_rtl.udb" last_build_time="1618867335" last_build_size="7874"/>
+        <Report name="cpu_project_impl_1_rtl.udb" last_build_time="1618872297" last_build_size="12168"/>
         <Report name="cpu_project_impl_1_syn.udb" last_build_time="1618867336" last_build_size="641"/>
     </Strategy>
 </BuildStatus>
+    

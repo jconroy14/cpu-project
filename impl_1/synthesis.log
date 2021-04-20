@@ -5,7 +5,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
-Mon Apr 19 17:22:14 2021
+Mon Apr 19 18:44:55 2021
 
 
 Command Line:  synthesis -f cpu_project_impl_1_lattice.synproj -gui -msgset /home/es4user/Documents/radiant-designs/cpu_project/promote.xml 
@@ -128,7 +128,6 @@ Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/i
 
 INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(5): analyzing entity alu. VHDL-1012
 INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(15): analyzing architecture synth. VHDL-1010
-WARNING - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(45): possible infinite loop process does not have a wait statement. VHDL-1196
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd. VHDL-1481
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd
 
@@ -137,7 +136,7 @@ INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/imp
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd. VHDL-1481
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd
 
-INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(5): analyzing entity alu_testbench. VHDL-1012
+INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(6): analyzing entity alu_testbench. VHDL-1012
 INFO - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(9): analyzing architecture sim. VHDL-1010
 INFO - synthesis: The default VHDL library search path is now "/home/es4user/Documents/radiant-designs/cpu_project/impl_1". VHDL-1504
 Top module language type = VHDL.
@@ -167,46 +166,13 @@ Top module name (VHDL, mixed language): alu_testbench
                                                          
 
 
-WARNING - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(17): net arith_full_result[32] does not have a driver. VDB-1002
-######## Missing driver on net \dut/arith_full_result[31]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[30]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[29]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[28]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[27]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[26]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[25]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[24]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[23]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[22]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[21]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[20]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[19]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[18]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[17]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[16]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[15]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[14]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[13]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[12]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[11]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[10]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[9]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[8]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[7]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[6]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[5]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[4]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[3]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[2]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[1]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[0]. Patching with GND.
+WARNING - synthesis: /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(28): Removing unused instance dut. VDB-5034
 
 
 
 
 ################### Begin Area Report (alu_testbench)######################
 Number of register bits => 0 of 5280 (0 % )
-OB => 1
 ################### End Area Report ##################
 Number of odd-length carry chains : 0
 Number of even-length carry chains : 0
@@ -218,7 +184,6 @@ Clock Enable Nets
 Number of Clock Enables: 0
 Highest fanout non-clock nets
 Top 10 highest fanout non-clock nets:
-  Net : passed, loads : 0
 ################### End Clock Report ##################
 
 Peak Memory Usage: 293 MB

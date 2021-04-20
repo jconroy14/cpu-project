@@ -1,5 +1,5 @@
 // Verilog netlist produced by program LSE :  version Radiant Software (64-bit) 2.2.0.97.3
-// Netlist written on Mon Apr 19 17:22:16 2021
+// Netlist written on Mon Apr 19 18:44:57 2021
 // Source file index table: 
 // Object locations will have the form @<file_index>(<first_ line>[<left_column>],<last_line>[<right_column>])
 // file 0 "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd"
@@ -62,13 +62,12 @@
 // Verilog Description of module alu_testbench
 //
 
-module alu_testbench (output passed);   /* synthesis lineinfo="@1(5[8],5[21])"*/
+module alu_testbench ();   /* synthesis lineinfo="@1(6[8],6[21])"*/
     
     
-    wire GND_net, VCC_net;
+    wire VCC_net, GND_net;
     
-    OB passed_pad (.I(GND_net), .O(passed));   /* synthesis lineinfo="@1(6[7],6[13])"*/
-    VLO i1 (.Z(GND_net));
-    VHI i13 (.Z(VCC_net));
+    VLO i24 (.Z(GND_net));
+    VHI i25 (.Z(VCC_net));
     
 endmodule

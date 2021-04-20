@@ -9,7 +9,7 @@ Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
-Mon Apr 19 17:22:14 2021
+Mon Apr 19 18:44:55 2021
 
 
 Command Line:  synthesis -f cpu_project_impl_1_lattice.synproj -gui -msgset /home/es4user/Documents/radiant-designs/cpu_project/promote.xml 
@@ -96,13 +96,13 @@ Analyzing VHDL file /home/es4user/tools/radiant/2.2/ip/pmi/pmi_iCE40UP.vhd
 INFO - "/home/es4user/tools/radiant/2.2/ip/pmi/pmi_iCE40UP.vhd(4):analyzing package . VHDL-1014Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd. VHDL-1481
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd
 
-INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(5):analyzing entity . VHDL-1012INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(15):analyzing architecture . VHDL-1010WARNING - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(45):possible infinite loop process does not have a wait statement. VHDL-1196Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd. VHDL-1481
+INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(5):analyzing entity . VHDL-1012INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(15):analyzing architecture . VHDL-1010Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd. VHDL-1481
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd
 
 INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd(5):analyzing entity . VHDL-1012INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/programcounter.vhd(15):analyzing architecture . VHDL-1010Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd. VHDL-1481
 Analyzing VHDL file /home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd
 
-INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(5):analyzing entity . VHDL-1012INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(9):analyzing architecture . VHDL-1010INFO - The default VHDL library search path is now "/home/es4user/Documents/radiant-designs/cpu_project/impl_1". VHDL-1504Top module language type = VHDL.
+INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(6):analyzing entity . VHDL-1012INFO - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(9):analyzing architecture . VHDL-1010INFO - The default VHDL library search path is now "/home/es4user/Documents/radiant-designs/cpu_project/impl_1". VHDL-1504Top module language type = VHDL.
 unit alu_testbench is not yet analyzed. VHDL-1485
 Top module name (VHDL, mixed language): alu_testbench
                                                          
@@ -129,45 +129,12 @@ Top module name (VHDL, mixed language): alu_testbench
                                                          
 
 
-WARNING - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu.vhd(17):net  does not have a driver. VDB-1002######## Missing driver on net \dut/arith_full_result[31]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[30]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[29]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[28]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[27]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[26]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[25]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[24]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[23]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[22]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[21]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[20]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[19]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[18]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[17]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[16]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[15]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[14]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[13]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[12]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[11]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[10]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[9]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[8]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[7]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[6]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[5]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[4]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[3]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[2]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[1]. Patching with GND.
-######## Missing driver on net \dut/arith_full_result[0]. Patching with GND.
-
+WARNING - "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/alu_testbench.vhd(28):Removing unused instance . VDB-5034
 
 
 
 ################### Begin Area Report (alu_testbench)######################
 Number of register bits => 0 of 5280 (0 % )
-OB => 1
 ################### End Area Report ##################
 Number of odd-length carry chains : 0
 Number of even-length carry chains : 0
@@ -179,7 +146,6 @@ Clock Enable Nets
 Number of Clock Enables: 0
 Highest fanout non-clock nets
 Top 10 highest fanout non-clock nets:
-  Net : passed, loads : 0
 ################### End Clock Report ##################
 
 Peak Memory Usage: 293 MB
@@ -198,34 +164,12 @@ Command Line: postsyn -a iCE40UP -p iCE40UP5K -t SG48 -sp High-Performance_1.2V 
    Package:          SG48
    Performance:      High-Performance_1.2V
 Reading input file 'cpu_project_impl_1.vm' ...
-CPU Time to convert: 0.070968
+CPU Time to convert: 0.080016
 REAL Time to convert: 0
 convert PEAK Memory Usage: 139 MB
 convert CURRENT Memory Usage: 139 MB
 Removing unused logic...
-INFO - Instance i13 is optimized away.Starting design annotation....
-Writing output file 'cpu_project_impl_1_syn.udb'.
-POSTSYN finished successfully.
-Total CPU Time: 0 secs 
-Total REAL Time: 0 secs 
-Peak Memory Usage: 157 MB
+INFO - Instance i24 is optimized away.INFO - Instance i25 is optimized away.Starting design annotation....
+child killed: segmentation violation
 
-
-timing -sethld -v 10 -u 10 -endpoints 10 -nperend 1  -html -rpt "cpu_project_impl_1.tws" "cpu_project_impl_1_syn.udb" 
-timing -sethld -v 10 -u 10 -endpoints 10 -nperend 1 -html -rpt cpu_project_impl_1.tws cpu_project_impl_1_syn.udb -gui
-Starting design reading...
-Initializing timer
-Starting design annotation....
-High-Performance_1.2V
-
-Starting full timing analysis...
-Loading device for application GENERIC from file 'itpa08.nph' in environment: /home/es4user/tools/radiant/2.2/ispfpga.
-Package Status:                     Preliminary    Version 1.5.
-
-STA Runtime and Peak Memory Usage :
-Total CPU Time: 0 secs 
-Total REAL Time: 0 secs 
-Peak Memory Usage: 131 MB
-
- 0.259507s wall, 0.210000s user + 0.010000s system = 0.220000s CPU (84.8%)
-
+Fail to run postsyn -a iCE40UP -p iCE40UP5K -t SG48 -sp High-Performance_1.2V -oc Industrial -top -w -o cpu_project_impl_1_syn.udb cpu_project_impl_1.vm -gui -msgset /home/es4user/Documents/radiant-designs/cpu_project/promote.xml 

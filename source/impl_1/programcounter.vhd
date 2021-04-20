@@ -21,7 +21,7 @@ begin
 process(clk) begin
 	if rising_edge(clk) then
 		if reset = '1' then
-			pc <= "0";
+			pc <= 32d"0";
 		elsif branch = '1' then
 			pc <= unsigned(branchAddr);
 		else

@@ -1,9 +1,9 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
+use std.textio.all;
 
 entity alu_testbench is
-	port(passed : out std_logic);
 end;
 
 architecture sim of alu_testbench is
@@ -17,11 +17,11 @@ architecture sim of alu_testbench is
         );
     end component;
 
-	signal srcA    :  std_logic_vector (31 downto 0);
-	signal srcB    :  std_logic_vector (31 downto 0);
-	signal command :  std_logic_vector (3  downto 0);
-	signal result  :  std_logic_vector (31 downto 0);
-	signal flags   :  std_logic_vector (3  downto 0);
+	signal srcA    :  std_logic_vector (31 downto 0) := 32d"0";
+	signal srcB    :  std_logic_vector (31 downto 0) := 32d"0";
+	signal command :  std_logic_vector (3  downto 0) := 4d"0";
+	signal result  :  std_logic_vector (31 downto 0) := 32d"0";
+	signal flags   :  std_logic_vector (3  downto 0) := 4d"0";
 
 begin
     --instantiate device under test
@@ -39,8 +39,29 @@ begin
         srcB <= 32d"20";
         command <= "0010";
         wait for 10 ns;
-        assert (result = 32d"-5" and flags = "1000") report "Test 2 failed (15 - 20).";
+        assert (result = 32x"FFFFFFFB" and flags = "1010") report "Test 2 failed (15 - 20).";
+		
+		-- 3 tests based on examples from the spec
+		srcA <= 32x"7FFFFFFF";
+        srcB <= 32x"1";
+        command <= "0100";
+        wait for 10 ns;
+        assert (result = 32x"80000000" and flags = "1001") report "Test 3 failed (0111... + 1).";
+		
+		srcA <= 32x"FFFFFFFF";
+        srcB <= 32x"FFFFFFFF";
+        command <= "0100";
+        wait for 10 ns;
+        assert (result = 32x"FFFFFFFE" and flags = "1010") report "Test 4 failed (-1 + -1).";
+		
+		srcA <= 32x"80000000";
+        srcB <= 32x"FFFFFFFF";
+        command <= "0100";
+        wait for 10 ns;
+        assert (result = 32x"7FFFFFFF" and flags = "0011") report "Test 5 failed (100... + -1).";
 
+		write(output, "All tests passed." & LF);
+		
         wait;
     end process;
 end;
