@@ -27,7 +27,9 @@ begin
 	
 	flags(3) <= '1' when (result(31) = '1') else '0'; -- Negative flag
 	flags(2) <= '1' when (result = 32d"0") else '0'; -- Zero flag
-	flags(1) <= '1' when ((is_plus or is_minus or is_rev_minus) and result_33bits(32)) else '0'; -- Carry flag
+	flags(1) <= '1' when ((is_plus and result_33bits(32)) or
+						  ((is_minus or is_rev_minus) and not(result_33bits(32))))
+						  else '0'; -- Carry flag
 	flags(0) <= '1' when ((is_minus and (srcA(31) xor  srcB(31)) and (result(31) xor srcA(31))) or
 						  (is_rev_minus and (srcA(31) xor  srcB(31)) and (result(31) xor srcB(31))) or
 						  (is_plus and (srcA(31) xnor srcB(31)) and (result(31) xor srcA(31))))
