@@ -18,7 +18,7 @@ WD3: in std_logic_vector(31 downto 0) -- Data input for port 3
 end;
 
 architecture synth of regfile is 
-type regarray is array (7 downto 0) of std_logic_vector(31 downto 0);
+type regarray is array (15 downto 0) of std_logic_vector(31 downto 0); 
 signal mem: regarray;
 
 begin 
@@ -27,6 +27,7 @@ begin
            if WE3='1' then 
                 mem(TO_INTEGER(A3)) <= WD3;
             end if ;
+	
             if (A1 /= "1111") then  --All the port is not 15
                   RD1 <= mem(to_integer(A1));
             else 
@@ -38,11 +39,11 @@ begin
                 RD2 <= R15;
             end if ;
 		end if;
+		
             
             
-
     end process;
-
-  
               
 end;
+
+
