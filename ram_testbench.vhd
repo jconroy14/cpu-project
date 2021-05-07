@@ -17,22 +17,12 @@ architecture sim of ram_testbench is
     );
 	end component;
 	
-	component HSOSC is
-		generic(
-			CLKHF_DIV : String := "0b00"); -- Divide 48MHz clock by 2ˆN (0-3)
-		port(
-			CLKHFPU :in std_logic := 'X'; -- Set to 1 to power up
-			CLKHFEN :in std_logic := 'X'; -- Set to 1 to enable output
-			CLKHF :out std_logic := 'X' -- Clock output
-		);
-	end component;
-	
-	signal clk, write_enable : std_logic;
+	signal clk, write_enable : std_logic := '0';
 	signal addr, write_data, read_data : unsigned (31 downto 0) := 32d"0";
 
 begin
-	clock : HSOSC port map ('1', '1', clk);
 	dut : ram port map(clk, write_enable, addr, write_data, read_data);
+	clk <= not clk after 5 ns;
 	
 	process begin
 		write_enable <= '1';
