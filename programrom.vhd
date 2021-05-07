@@ -76,11 +76,11 @@ begin
   return rom_content;
 end function;
 
+signal word_addr : natural;
 
-begin 
-
-storage <=init_rom_hex;
-
-  data <= storage(to_integer(addr));
+begin
+  storage <= init_rom_hex;
+  word_addr <= to_integer(addr(31 downto 2));
+  data <= storage(word_addr);
 
 end;

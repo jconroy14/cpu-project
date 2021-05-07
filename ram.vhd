@@ -21,16 +21,15 @@ architecture synth of ram is
         of unsigned(ram_width - 1 downto 0);
   
     signal memory: ram_type;
-	
-	signal in_bounds_addr: unsigned (ram_addr_size - 1 downto 0);
+	signal word_addr: natural;
 begin
-
-	read_data <= memory(to_integer(addr)) when addr < ram_depth else "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	word_addr <= to_integer(addr(31 downto 2)); -- Divide by 4 to convert from byte-address to word-address
+	read_data <= memory(word_addr) when word_addr < ram_depth else "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 	
 	process(clk) begin
 		if rising_edge(clk) then
-			if (write_enable = '1') and (addr < ram_depth) then
-				memory(to_integer(addr)) <= write_data;
+			if (write_enable = '1') and (word_addr < ram_depth) then
+				memory(word_addr) <= write_data;
 			end if;
 		end if;
 	end process;

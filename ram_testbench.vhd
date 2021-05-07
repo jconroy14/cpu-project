@@ -70,19 +70,25 @@ begin
 		wait until rising_edge(clk);
 		assert (read_data = 32d"20") report "Test 5 failed";
 		
+		write_enable <= '1';
+		addr <= 32d"60";
+		write_data <= 32d"60";
+		wait until rising_edge(clk);
+		
 		write_enable <= '0';
-		addr <= 32d"16";
+		addr <= 32d"64";
 		wait until rising_edge(clk);
 		assert Is_X(read_data) report "Test 6 failed";
 		
-		write_enable <= '1';
-		addr <= 32d"16";
+		write_enable <= '0';
+		addr <= 32d"60";
 		wait until rising_edge(clk);
+		assert (read_data = 32d"60") report "Test 7 failed";
 		
 		write_enable <= '0';
 		addr <= 32d"164";
 		wait until rising_edge(clk);
-		assert Is_X(read_data) report "Test 7 failed";
+		assert Is_X(read_data) report "Test 8 failed";
 		
 		write_enable <= '1';
 		addr <= 32d"162";
