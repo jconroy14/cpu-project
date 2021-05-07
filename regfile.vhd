@@ -19,7 +19,7 @@ end;
 
 architecture synth of regfile is 
 type regarray is array (15 downto 0) of std_logic_vector(31 downto 0); 
-signal mem: regarray;
+signal mem: regarray := (others => (others => '0'));
 
 begin 
     process(clk) begin
@@ -27,23 +27,22 @@ begin
            if WE3='1' then 
                 mem(TO_INTEGER(A3)) <= WD3;
             end if ;
+	    end if;
 	
             if (A1 /= "1111") then  --All the port is not 15
                   RD1 <= mem(to_integer(A1));
             else 
-                RD2 <= R15;
-            end if ;
+                RD1 <= R15;
+            end if;
             if (A2 /= "1111") then  --All the port is not 15 
                   RD2 <= mem(to_integer(A2));
             else 
                 RD2 <= R15;
             end if ;
-		end if;
+	
 		
             
             
     end process;
               
 end;
-
-
