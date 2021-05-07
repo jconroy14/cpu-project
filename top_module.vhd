@@ -112,7 +112,7 @@ signal useImm : std_logic;
 signal imm : std_logic_vector(11 downto 0);
 signal immout : std_logic_vector(31 downto 0);
 --regfile
-signal pcp8 : std_logic_vector
+signal pcp8 : unsigned(31 downto 0);
 signal RD1, RD2 : std_logic_vector(31 downto 0);
 signal WD3 : std_logic_vector(31 downto 0);
 --ALU
@@ -127,7 +127,7 @@ begin
 	decode : decoder port map(instruction => instruction, aluControl => aluCommand, addrA => Rn, addrB => Rm, addrC => Rd, useImm => useImm);
 	immex : immextend port map(op => instruction(27 downto 26), imm => instruction(11 downto 0), immout => immout);
 	pc8 : add8 port map(x => pc, xplus8 => pcp8);
-	reg : regfile port map(A1 => Rn, A2 => Rm, A3 => Rd, WE3 => '1', R15 => std_logic_vector(pcp8), RD1 => RD1, RD2 => RD2, WD3 => WD3);
+	reg : regfile port map(clk => clk, A1 => Rn, A2 => Rm, A3 => Rd, WE3 => '1', R15 => std_logic_vector(pcp8), RD1 => RD1, RD2 => RD2, WD3 => WD3);
 	srcB <= immout when useImm else RD2;
 	myalu : alu port map(srcA => RD1, srcB => srcB, command => aluCommand, result => WD3, flags => flags);
 	--myRam : ram port map (clk  => clk, write_enable => ?, addr => ?, write_data => ?, read_data => ?);
