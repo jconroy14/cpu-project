@@ -35,23 +35,18 @@ begin
 						  (is_plus and (srcA(31) xnor srcB(31)) and (result(31) xor srcA(31))))
 						  else '0'; -- Overflow flag
 
-	process(all) begin
-	case command is
-		when "0000" => -- Bitwise AND
-			result_33bits <= srcA_33bits and srcB_33bits;
-		when "0010" => -- Subtraction
-			result_33bits <= std_logic_vector(unsigned(srcA_33bits) - unsigned(srcB_33bits));
-		when "0011" =>  -- Reverse Subtraction
-			result_33bits <= std_logic_vector(unsigned(srcB_33bits) - unsigned(srcA_33bits));
-		when "0100" => -- Addition
-			result_33bits <= std_logic_vector(unsigned(srcA_33bits) + unsigned(srcB_33bits));
-		when "1100" =>  -- Bitwise OR
-			result_33bits <= srcA_33bits or srcB_33bits;
-		when "1101" => -- MOV. TODO: Figure out how to correctly implement this
-			result_33bits <= srcB_33bits;
-		when others =>  -- TODO: Change error checking?
-			result_33bits <= 33d"0";
-	end case;
-end process;
 
+	result_33bits <= srcA_33bits and srcB_33bits
+							when command = "0000" else -- Bitwise AND
+					 std_logic_vector(unsigned(srcA_33bits) - unsigned(srcB_33bits))
+							when command = "0010" else -- Subtraction
+					 std_logic_vector(unsigned(srcB_33bits) - unsigned(srcA_33bits))
+							when command = "0011" else -- Reverse subtraction
+					 std_logic_vector(unsigned(srcA_33bits) + unsigned(srcB_33bits))
+							when command = "0100" else -- Addition
+					 srcA_33bits or srcB_33bits
+							when command = "1100" else -- Bitwise OR
+					 srcB_33bits
+							when command = "1101" else -- MOV
+					 33d"0"; -- Return 0 if invalid command
 end;

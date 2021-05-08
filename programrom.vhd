@@ -17,7 +17,7 @@ end;
 
 
 architecture synth of progrom is 
-constant rom_depth : natural := 12;
+constant rom_depth : natural := 15;
 constant rom_width : natural := 32;
  
 type rom_type is array (0 to rom_depth - 1)
@@ -28,7 +28,7 @@ type rom_type is array (0 to rom_depth - 1)
 --impure function init_rom_hex return rom_type is
 
 	impure function init_rom_hex return rom_type is
-  file text_file : text open read_mode is "rom_content_hex.txt";
+  file text_file : text open read_mode is "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/memory_test.txt";--"rom_content_hex.txt";
   variable text_line : line;
   variable rom_content : rom_type;
   variable c : character;
@@ -76,11 +76,12 @@ begin
   return rom_content;
 end function;
 
-signal word_addr : natural;
+signal word_addr : unsigned(29 downto 0);
 
 begin
   storage <= init_rom_hex;
-  word_addr <= to_integer(addr(31 downto 2));
-  data <= storage(word_addr);
+  word_addr <= addr(31 downto 2);
+  
+  data <= storage(to_integer(word_addr)) when word_addr < rom_depth else "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
 end;

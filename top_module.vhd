@@ -3,6 +3,21 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
 entity top_module is
+	port (
+		resetPC : in std_logic;
+		clk : in std_logic;
+		output : out std_logic_vector(31 downto 0);
+		out_pc : out unsigned(31 downto 0);
+		out_instruction : out std_logic_vector(31 downto 0);
+		out_immout : out std_logic_vector(31 downto 0);
+		out_srcB : out std_logic_vector(31 downto 0);
+		out_op : out std_logic_vector(1 downto 0);
+		out_aluresult : out std_logic_vector(31 downto 0);
+		out_rn_contents : out std_logic_vector(31 downto 0);
+		out_src_b_contents : out std_logic_vector(31 downto 0);
+		out_ram_write : out std_logic;
+		out_ram_result : out std_logic_vector(31 downto 0)
+	);
 end;
 
 architecture synth of top_module is
@@ -77,11 +92,16 @@ end component;
 component decoder is
 port(
 	instruction : in std_logic_vector(31 downto 0);
-	aluControl : out std_logic_vector(3 downto 0);
-	addrA : out unsigned(3 downto 0); --Rn, address of first operand
-	addrB : out unsigned(3 downto 0); --Src2, address of second operand (if useImm = 0, otherwise second operand is the imediate value 7 downto 0)
-	addrC : out unsigned(3 downto 0); --Rd, address of the input register, where the result of Rn and Src2 will be stored
-	useImm : out std_logic
+	cond : out std_logic_vector(3 downto 0);
+	op : out std_logic_vector(1 downto 0);
+	useImm : out std_logic;
+	aluCommand : out std_logic_vector(3 downto 0);
+	Rn : out unsigned(3 downto 0); -- address of first operand
+	Rd : out unsigned(3 downto 0); -- address of the input register, where the result of Rn and Src2 will be stored
+	Rm : out unsigned(3 downto 0); -- address of the second operand (if useImm = 1, use imm12 instead)
+	imm12 : out std_logic_vector(11 downto 0);
+	performLoad : out std_logic;
+	writeToReg : out std_logic
 );
 end component;
 
@@ -95,40 +115,80 @@ port(
 );
 end component;
 
---clock
-signal clk: std_logic;
+--clock: FOR TESTING ONLY, make this an input
+--signal clk: std_logic := '0';
 --programcounter
-signal resetPC : std_logic;
-signal useBranch : std_logic;
-signal branchAddr : std_logic_vector(31 downto 0);
+--signal resetPC : std_logic;
+signal useBranch : std_logic := '0';
+signal branchAddr : std_logic_vector(31 downto 0) := 32d"0";
 signal pc: unsigned(31 downto 0);
 
 signal instruction : std_logic_vector(31 downto 0);
 --decoder
+signal cond : std_logic_vector(3 downto 0);
+signal op : std_logic_vector(1 downto 0);
 signal aluCommand : std_logic_vector(3 downto 0);
 signal Rn, Rm, Rd: unsigned(3 downto 0);
 signal useImm : std_logic;
---immextend
 signal imm : std_logic_vector(11 downto 0);
+signal performLoad : std_logic;
+signal writeToReg : std_logic;
+--immextend
+
 signal immout : std_logic_vector(31 downto 0);
 --regfile
 signal pcp8 : unsigned(31 downto 0);
-signal RD1, RD2 : std_logic_vector(31 downto 0);
-signal WD3 : std_logic_vector(31 downto 0);
+signal srcB_reg : unsigned(3 downto 0); 
+signal Rn_contents, srcB_reg_contents : std_logic_vector(31 downto 0);
+signal result : std_logic_vector(31 downto 0);
 --ALU
+signal alu_result : std_logic_vector(31 downto 0);
 signal srcB : std_logic_vector(31 downto 0);
 signal flags : std_logic_vector(3 downto 0);
+--RAM
+signal performStore : std_logic;
+signal ram_result : unsigned(31 downto 0);
 
 begin
-	clock : HSOSC port map('1', '1', clk);
+	--clock : HSOSC port map('1', '1', clk);
 
+	-- Fetch and decode instruction
 	rom : progrom port map(addr => pc, data => instruction);
 	progcount : programcounter port map(clk => clk, reset => resetPC, branch => useBranch, branchAddr => branchAddr, pc => pc);
-	decode : decoder port map(instruction => instruction, aluControl => aluCommand, addrA => Rn, addrB => Rm, addrC => Rd, useImm => useImm);
-	immex : immextend port map(op => instruction(27 downto 26), imm => instruction(11 downto 0), immout => immout);
+	decode : decoder port map(cond => cond, op => op, instruction => instruction,
+							   aluCommand => aluCommand, Rn => Rn, Rm => Rm, Rd => Rd,
+							   useImm => useImm, imm12 => imm, performLoad => performLoad,
+							   writeToReg => writeToReg);
+	
+	-- Read from register (and write old value to register)
 	pc8 : add8 port map(x => pc, xplus8 => pcp8);
-	reg : regfile port map(clk => clk, A1 => Rn, A2 => Rm, A3 => Rd, WE3 => '1', R15 => std_logic_vector(pcp8), RD1 => RD1, RD2 => RD2, WD3 => WD3);
-	srcB <= immout when useImm else RD2;
-	myalu : alu port map(srcA => RD1, srcB => srcB, command => aluCommand, result => WD3, flags => flags);
-	--myRam : ram port map (clk  => clk, write_enable => ?, addr => ?, write_data => ?, read_data => ?);
+	srcB_reg <= Rd when (op = "01" and performLoad = '1') else Rm;
+	reg : regfile port map(clk => clk, A1 => Rn, A2 => srcB_reg, A3 => Rd, WE3 => writeToReg, R15 => std_logic_vector(pcp8), RD1 => Rn_contents, RD2 => srcB_reg_contents, WD3 => result);
+	
+	-- Deal with data-processing operations (ie. compute alu_result)
+	immex : immextend port map(op => op, imm => imm, immout => immout);
+	srcB <= immout when useImm else srcB_reg_contents;
+	myalu : alu port map(srcA => Rn_contents, srcB => srcB, command => aluCommand, result => alu_result, flags => flags);
+	
+	-- Deal with memory operations
+	performStore <= not(performLoad);
+	myRam : ram port map (clk => clk, write_enable => performStore, addr => unsigned(alu_result), write_data => unsigned(srcB_reg_contents), read_data => ram_result);
+	
+	-- Select correct result
+	result <= alu_result when op = "00" else
+			  std_logic_vector(ram_result) when op = "01" else
+			  32d"0";
+
+	-- Output signals
+	output <= result;
+	out_pc <= pc;
+	out_instruction <= instruction;
+	out_immout <= immout;
+	out_srcB <= srcB;
+	out_op <= op;
+	out_aluresult <= alu_result;
+	out_rn_contents <=Rn_contents;
+	out_src_b_contents <= srcB_reg_contents;
+	out_ram_write <= performStore;
+	out_ram_result <= std_logic_vector(ram_result);
 end;

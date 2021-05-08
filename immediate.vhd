@@ -17,7 +17,7 @@ begin
 	vals <= unsigned(24d"0" & imm(7 downto 0));
     rot <= unsigned(imm(11 downto 8) & "0");
 
-	process(op, imm) begin
+	process(all) begin
 		if op = "00" then -- Encoding for Data-Processing Instructions
 			for i in 0 to 31 loop
 				immout(i) <= vals(to_integer((rot + i) mod 32));

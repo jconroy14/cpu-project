@@ -24,11 +24,27 @@ signal branchAddr : std_logic_vector (31 downto 0);
 signal pc : unsigned (31 downto 0);
 
 begin
-
 	dut : programcounter port map (clk => clk, reset => reset, branch => branch, branchAddr => branchAddr, pc => pc);
-
+	
 	process begin
-		reset <= '1'; clk <= '1'; branch <= '1';  branchAddr <= 32x"00000000"; wait for 10 ns;
-		wait;
+		reset <= '1'; clk <= '0'; branch <= '0';  branchAddr <= 32x"00000000"; wait for 10 ns;
+
+		reset <= '1'; clk <= '1'; branch <= '0';  branchAddr <= 32x"00000000"; wait for 10 ns;
+
+		reset <= '0'; clk <= '0'; branch <= '1';  branchAddr <= 32x"00000000"; wait for 10 ns;
+
+		reset <= '0'; clk <= '1'; branch <= '0';  branchAddr <= 32x"00000000"; wait for 10 ns;
+
+		reset <= '0'; clk <= '0'; branch <= '0';  branchAddr <= 32x"00000000"; wait for 10 ns;
+
+		reset <= '0'; clk <= '1'; branch <= '0';  branchAddr <= 32x"00000000"; wait for 10 ns;
+
+		reset <= '0'; clk <= '0'; branch <= '1';  branchAddr <= 32x"00000001"; wait for 10 ns;
+
+		reset <= '0'; clk <= '1'; branch <= '1';  branchAddr <= 32x"00000001"; wait for 10 ns;
+
+		reset <= '0'; clk <= '0'; branch <= '0';  branchAddr <= 32x"00000001"; wait for 10 ns;
+
+		reset <= '0'; clk <= '1'; branch <= '0';  branchAddr <= 32x"00000001"; wait;
 	end process;
 end;

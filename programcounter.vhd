@@ -20,13 +20,15 @@ begin
 
 process(clk) begin
 	if rising_edge(clk) then
+		report "Program Counter (r, b, add): " & to_string(reset) & ", " & to_string(branch) & ", " & to_string(address);
 		if reset = '1' then
-			pc <= 32d"0";
+			address <= 32d"0";
 		elsif branch = '1' then
-			pc <= unsigned(branchAddr);
+			address <= unsigned(branchAddr);
 		else
-			pc <= address + 32d"4";
+			address <= address + 32d"4";
 		end if;
 	end if;
 end process;
+pc <= address;
 end;

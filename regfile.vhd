@@ -29,20 +29,16 @@ begin
             end if ;
 	    end if;
 	
-            if (A1 /= "1111") then  --All the port is not 15
-                  RD1 <= mem(to_integer(A1));
-            else 
-                RD1 <= R15;
-            end if;
-            if (A2 /= "1111") then  --All the port is not 15 
-                  RD2 <= mem(to_integer(A2));
-            else 
-                RD2 <= R15;
-            end if ;
 	
 		
             
             
     end process;
+	
+	RD1 <= mem(to_integer(A1)) when A1 /="1111" else 
+	       R15;
+	RD2 <= mem(to_integer(A2)) when A2 /= "1111" else 
+	       R15;
+	
               
 end;
