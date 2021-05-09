@@ -15,7 +15,7 @@ port(
 	Rd : out unsigned(3 downto 0);
 	Rm : out unsigned(3 downto 0);
 	imm12 : out std_logic_vector(11 downto 0);
-	performLoad : out std_logic;
+	writeToRam : out std_logic;
 	writeToReg : out std_logic
 );
 
@@ -40,12 +40,12 @@ begin
 	
 	-- "Memory" encoding (Rn and Rm stay the same)
 	isMemOp <= '1' when op = "01" else '0';
-	performLoad <= instruction(20) and isMemOp;
+	writeToRam <= '1' when (not(instruction(20)) and isMemOp) else '0';
 	useImm <= useImm_raw or isMemOp; --For memory operations, we always use the immediate value
 	aluCommand <= 4b"0100" when isMemOp else aluCommand_raw; -- For memory operations, we always add imm and Rn
 	-- "Branch" encoding
 	-- imm24 <= instruction(23 downto 0);
 	
 	-- Don't write to register if (a) there is a "STR" instruction, or (b) Rd = 15
-	writeToReg <= '1' when not(((op = "01") and (performLoad = '0')) or (Rd = 4d"15")) else '0';
+	writeToReg <= '0' when (writeToRam = '1' or Rd = 4d"15") else '1';
 end;

@@ -100,7 +100,7 @@ port(
 	Rd : out unsigned(3 downto 0); -- address of the input register, where the result of Rn and Src2 will be stored
 	Rm : out unsigned(3 downto 0); -- address of the second operand (if useImm = 1, use imm12 instead)
 	imm12 : out std_logic_vector(11 downto 0);
-	performLoad : out std_logic;
+	writeToRam : out std_logic;
 	writeToReg : out std_logic
 );
 end component;
@@ -146,7 +146,7 @@ signal alu_result : std_logic_vector(31 downto 0);
 signal srcB : std_logic_vector(31 downto 0);
 signal flags : std_logic_vector(3 downto 0);
 --RAM
-signal performStore : std_logic;
+signal writeToRam : std_logic;
 signal ram_result : unsigned(31 downto 0);
 
 begin
@@ -157,7 +157,7 @@ begin
 	progcount : programcounter port map(clk => clk, reset => resetPC, branch => useBranch, branchAddr => branchAddr, pc => pc);
 	decode : decoder port map(cond => cond, op => op, instruction => instruction,
 							   aluCommand => aluCommand, Rn => Rn, Rm => Rm, Rd => Rd,
-							   useImm => useImm, imm12 => imm, performLoad => performLoad,
+							   useImm => useImm, imm12 => imm, writeToRam => writeToRam,
 							   writeToReg => writeToReg);
 	
 	-- Read from register (and write old value to register)
@@ -171,8 +171,7 @@ begin
 	myalu : alu port map(srcA => Rn_contents, srcB => srcB, command => aluCommand, result => alu_result, flags => flags);
 	
 	-- Deal with memory operations
-	performStore <= not(performLoad) when op = "01" else '0';
-	myRam : ram port map (clk => clk, write_enable => performStore, addr => unsigned(alu_result), write_data => unsigned(srcB_reg_contents), read_data => ram_result);
+	myRam : ram port map (clk => clk, write_enable => writeToRam, addr => unsigned(alu_result), write_data => unsigned(srcB_reg_contents), read_data => ram_result);
 	
 	-- Select correct result
 	result <= alu_result when op = "00" else
@@ -189,6 +188,6 @@ begin
 	out_aluresult <= alu_result;
 	out_rn_contents <=Rn_contents;
 	out_src_b_contents <= srcB_reg_contents;
-	out_ram_write <= performStore;
+	out_ram_write <= writeToRam;
 	out_ram_result <= std_logic_vector(ram_result);
 end;
