@@ -40,7 +40,7 @@ begin
 	
 	-- "Memory" encoding (Rn and Rm stay the same)
 	isMemOp <= '1' when op = "01" else '0';
-	performLoad <= instruction(20);
+	performLoad <= instruction(20) and isMemOp;
 	useImm <= useImm_raw or isMemOp; --For memory operations, we always use the immediate value
 	aluCommand <= 4b"0100" when isMemOp else aluCommand_raw; -- For memory operations, we always add imm and Rn
 	-- "Branch" encoding

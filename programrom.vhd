@@ -17,7 +17,7 @@ end;
 
 
 architecture synth of progrom is 
-constant rom_depth : natural := 15;
+constant rom_depth : natural := 17;
 constant rom_width : natural := 32;
  
 type rom_type is array (0 to rom_depth - 1)

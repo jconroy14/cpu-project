@@ -162,7 +162,7 @@ begin
 	
 	-- Read from register (and write old value to register)
 	pc8 : add8 port map(x => pc, xplus8 => pcp8);
-	srcB_reg <= Rd when (op = "01" and performLoad = '1') else Rm;
+	srcB_reg <= Rd when op = "01" else Rm;
 	reg : regfile port map(clk => clk, A1 => Rn, A2 => srcB_reg, A3 => Rd, WE3 => writeToReg, R15 => std_logic_vector(pcp8), RD1 => Rn_contents, RD2 => srcB_reg_contents, WD3 => result);
 	
 	-- Deal with data-processing operations (ie. compute alu_result)
@@ -171,7 +171,7 @@ begin
 	myalu : alu port map(srcA => Rn_contents, srcB => srcB, command => aluCommand, result => alu_result, flags => flags);
 	
 	-- Deal with memory operations
-	performStore <= not(performLoad);
+	performStore <= not(performLoad) when op = "01" else '0';
 	myRam : ram port map (clk => clk, write_enable => performStore, addr => unsigned(alu_result), write_data => unsigned(srcB_reg_contents), read_data => ram_result);
 	
 	-- Select correct result
