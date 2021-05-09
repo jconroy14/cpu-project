@@ -11,8 +11,8 @@ entity immextend is
 end;
 
 architecture synth of immextend is
-	signal rot : unsigned(4 downto 0);
-	signal vals : unsigned(31 downto 0);
+	signal rot : unsigned(4 downto 0) := 5d"0";
+	signal vals : unsigned(31 downto 0) := 32d"0";
 begin
 	vals <= unsigned(24d"0" & imm(7 downto 0));
     rot <= unsigned(imm(11 downto 8) & "0");
