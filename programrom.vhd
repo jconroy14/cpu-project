@@ -17,7 +17,7 @@ end;
 
 
 architecture synth of progrom is 
-constant rom_depth : natural := 17;
+constant rom_depth : natural := 1024;
 constant rom_width : natural := 32;
  
 type rom_type is array (0 to rom_depth - 1)
@@ -36,8 +36,11 @@ type rom_type is array (0 to rom_depth - 1)
   variable hex_val : std_logic_vector(3 downto 0);
 begin
   for i in 0 to rom_depth - 1 loop
+     if(endfile(text_file)) then
+            exit;  
+	end if ;
     readline(text_file, text_line);
- 
+     
     offset := 0;
  
     while offset < rom_content(i)'high loop
