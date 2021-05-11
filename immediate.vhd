@@ -5,7 +5,7 @@ use IEEE.numeric_std.all;
 entity immextend is
 	port(
 		op  : in std_logic_vector(1 downto 0);
-		imm : in std_logic_vector(11 downto 0);
+		imm : in std_logic_vector(23 downto 0);
 		immout : out std_logic_vector(31 downto 0)
 	);
 end;
@@ -21,12 +21,9 @@ begin
 		if op = "00" then -- Encoding for Data-Processing Instructions
 			for i in 0 to 31 loop
 				immout(i) <= vals(to_integer((rot + i) mod 32));
-				--report "Looking to fill in place: " & to_string(i) & LF;
-				--report "Looking at value position: " & to_string(to_integer((rot + i) mod 32)) & LF;
-				--report "Filling in with value: " & to_string(vals(to_integer((rot+i) mod 32))) & LF;
 			end loop;
 		elsif op = "01" then -- Encoding for Memory Instructions
-			immout <= 20d"0" & imm; -- TODO: Replace this with whatever it should be
+			immout <= 20d"0" & imm(11 downto 0);
 		end if;
 	end process;
 end;
