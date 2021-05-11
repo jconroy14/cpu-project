@@ -28,7 +28,7 @@ type rom_type is array (0 to rom_depth - 1)
 --impure function init_rom_hex return rom_type is
 
 	impure function init_rom_hex return rom_type is
-  file text_file : text open read_mode is "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/memory_test.txt";--"rom_content_hex.txt";
+  file text_file : text open read_mode is "/home/es4user/Documents/radiant-designs/cpu_project/source/impl_1/sum_1to10.txt";--"rom_content_hex.txt";
   variable text_line : line;
   variable rom_content : rom_type;
   variable c : character;

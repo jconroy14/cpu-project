@@ -24,6 +24,12 @@ begin
 			end loop;
 		elsif op = "01" then -- Encoding for Memory Instructions
 			immout <= 20d"0" & imm(11 downto 0);
+		elsif op = "10" then -- Encoding for Branch Instructions
+			if imm(23) = '1' then
+				immout <= 6b"111111" & imm & 2d"0";
+			else
+				immout <= 6d"0" & imm & 2d"0";
+			end if;
 		end if;
 	end process;
 end;

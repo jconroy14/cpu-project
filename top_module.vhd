@@ -16,7 +16,9 @@ entity top_module is
 		out_rn_contents : out std_logic_vector(31 downto 0);
 		out_src_b_contents : out std_logic_vector(31 downto 0);
 		out_ram_write : out std_logic;
-		out_ram_result : out std_logic_vector(31 downto 0)
+		out_ram_result : out std_logic_vector(31 downto 0);
+		out_reg_write : out std_logic;
+		out_imm24 : out std_logic_vector(23 downto 0)
 	);
 end;
 
@@ -100,6 +102,7 @@ port(
 	imm : out std_logic_vector(23 downto 0);
 	writeToRam : out std_logic;
 	writeToReg : out std_logic;
+	branch : out std_logic;
 	aluFlags : in std_logic_vector(3 downto 0)
 );
 end component; 
@@ -155,11 +158,12 @@ begin
 	
 	-- Fetch and decode instruction
 	rom : progrom port map(addr => pc, data => instruction);
-	progcount : programcounter port map(clk => clk, reset => resetPC, branch => useBranch, branchAddr => branchAddr, pc => pc);
+	progcount : programcounter port map(clk => clk, reset => resetPC, branch => useBranch, branchAddr => alu_result, pc => pc);
 	controller : control_module port map(op => op, instruction => instruction,
 							   aluCommand => aluCommand, Rn => Rn, Rm => Rm, Rd => Rd,
 							   useImm => useImm, imm => imm, writeToRam => writeToRam,
-							   writeToReg => writeToReg, clk => clk, aluFlags => flags);
+							   writeToReg => writeToReg, clk => clk, aluFlags => flags,
+							   branch => useBranch);
 							   
 	-- Read from register (and write old value to register)
 	pc8 : add8 port map(x => pc, xplus8 => pcp8);
@@ -175,7 +179,7 @@ begin
 	myRam : ram port map (clk => clk, write_enable => writeToRam, addr => unsigned(alu_result), write_data => unsigned(srcB_reg_contents), read_data => ram_result);
 
 	-- Select correct result
-	result <= alu_result when op = "00" else
+	result <= alu_result when (op = "00" or op = "10") else
 			  std_logic_vector(ram_result) when op = "01" else
 			  32d"0";
 
@@ -190,5 +194,7 @@ begin
 	out_rn_contents <=Rn_contents;
 	out_src_b_contents <= srcB_reg_contents;
 	out_ram_write <= writeToRam;
+	out_reg_write <= writeToReg;
 	out_ram_result <= std_logic_vector(ram_result);
+	out_imm24 <= imm;
 end;

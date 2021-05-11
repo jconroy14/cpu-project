@@ -15,7 +15,8 @@ port(
 	Rm : out unsigned(3 downto 0); -- address of the second operand (if useImm = 1, use imm12 instead)
 	imm : out std_logic_vector(23 downto 0);
 	writeToRam : out std_logic;
-	writeToReg : out std_logic
+	writeToReg : out std_logic;
+	branch : out std_logic
 );
 end; 
 
@@ -59,11 +60,12 @@ end component;
 	signal aluCommand_decoded : std_logic_vector(3 downto 0);
 	signal cond : std_logic_vector(3 downto 0);
 	signal doInstruction : std_logic;
+	signal Rn_decoded : unsigned(3 downto 0);
 	
 begin
 	decode : decoder port map(cond => cond, op => op, instruction => instruction,
-							   aluCommand => aluCommand_decoded, Rn => Rn, Rm => Rm,
-							   Rd => Rd, useImm => useImm_decoded, imm => imm,
+							   aluCommand => aluCommand_decoded, Rn => Rn_decoded,
+							   Rm => Rm, Rd => Rd, useImm => useImm_decoded, imm => imm,
 							   performLoad => performLoad, FlagWrite => FlagWrite);
 	cpsr_reg : CPSR port map(clk => clk, cpsr_enable => cpsr_enable, cpsr_in => aluFlags, cpsr_out => cpsr_out);
 	condex : condlogic port map(cond => cond, flags => cpsr_out, doInstruction => doInstruction);
@@ -73,9 +75,10 @@ begin
 			when "00" =>
 				useImm <= useImm_decoded;
 				aluCommand <= aluCommand_decoded;
-				writeToRam <= '0' and doInstruction;
+				writeToRam <= '0';
 				writeToReg <= '0' when Rd = 4d"15" else ('1' and doInstruction);
-    
+				branch <= '0';
+				Rn <= Rn_decoded;
 				cpsr_enable <= "1111" when (FlagWrite = '1' and -- Case 1: ADD/SUB/RSB
 												(aluCommand_decoded = "0010" or
 												 aluCommand_decoded = "0011" or
@@ -87,19 +90,24 @@ begin
 				aluCommand <= 4b"0100";
 				writeToRam <= not(performLoad) and doInstruction;
 				writeToReg <= performLoad and doInstruction;
+				branch <= '0';
 				cpsr_enable <= "0000";
+				Rn <= Rn_decoded;
 			when "10" =>
 				useImm <= '1';
 				aluCommand <= 4b"0100";
 				writeToRam <= '0';
 				writeToReg <= '0';
+				branch <= doInstruction;
 				cpsr_enable <= "0000";
+				Rn <= 4d"15";
 			when others =>
 				useImm <= 'X';
 				aluCommand <= "XXXX";
 				writeToRam <= 'X';
 				writeToReg <= 'X';
 				cpsr_enable <= "XXXX";
+				Rn <= "XXXX";
 		end case;
 	end process;
 end;

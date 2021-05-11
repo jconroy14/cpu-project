@@ -21,18 +21,26 @@ architecture sim of top_testbench is
 			out_rn_contents : out std_logic_vector(31 downto 0);
 			out_src_b_contents : out std_logic_vector(31 downto 0);
 			out_ram_write : out std_logic;
-			out_ram_result : out std_logic_vector(31 downto 0)
+			out_ram_result : out std_logic_vector(31 downto 0);
+			out_reg_write : out std_logic;
+			out_imm24 : out std_logic_vector(23 downto 0)
 		);
 	end component;
 	signal resetPC : std_logic := '1';
 	signal clk : std_logic := '0';
-	signal out_ram_write : std_logic;
+	signal out_ram_write, out_reg_write : std_logic;
 	signal output, out_ram_result, out_instruction, out_immout, out_srcB, out_aluresult, out_rn_contents, out_src_b_contents : std_logic_vector(31 downto 0);
 	signal out_pc : unsigned(31 downto 0);
 	signal out_op : std_logic_vector(1 downto 0);
+	signal out_imm24 : std_logic_vector(23 downto 0);
 begin
 	clk <= not clk after 100 ns;
-	cpuPortmap : top_module port map(out_ram_write => out_ram_write, out_ram_result => out_ram_result, out_op => out_op, out_aluresult => out_aluresult, out_rn_contents => out_rn_contents, out_src_b_contents => out_src_b_contents, resetPC => resetPC, clk => clk, output => output, out_pc => out_pc, out_instruction => out_instruction, out_immout => out_immout, out_srcB => out_srcB);
+	cpuPortmap : top_module port map(out_reg_write => out_reg_write, out_ram_write => out_ram_write,
+					out_ram_result => out_ram_result, out_op => out_op, out_aluresult => out_aluresult,
+					out_rn_contents => out_rn_contents, out_src_b_contents => out_src_b_contents,
+					resetPC => resetPC, clk => clk, output => output, out_pc => out_pc,
+					out_instruction => out_instruction, out_immout => out_immout, out_srcB => out_srcB,
+					out_imm24 => out_imm24);
 	
 	process begin
 		wait until rising_edge(clk);
