@@ -46,11 +46,19 @@ port(
 );
 end component;
 
+component condlogic is -- Conditional logic
+	port(
+	cond: in std_logic_vector(3 downto 0);
+	flags: in std_logic_vector(3 downto 0);
+	doInstruction: out std_logic);
+end component;
+
 	signal cpsr_enable : std_logic_vector(3 downto 0);
 	signal cpsr_out : std_logic_vector(3 downto 0);
 	signal FlagWrite, performLoad, useImm_decoded : std_logic;
 	signal aluCommand_decoded : std_logic_vector(3 downto 0);
 	signal cond : std_logic_vector(3 downto 0);
+	signal doInstruction : std_logic;
 	
 begin
 	decode : decoder port map(cond => cond, op => op, instruction => instruction,
@@ -58,20 +66,15 @@ begin
 							   Rd => Rd, useImm => useImm_decoded, imm => imm,
 							   performLoad => performLoad, FlagWrite => FlagWrite);
 	cpsr_reg : CPSR port map(clk => clk, cpsr_enable => cpsr_enable, cpsr_in => aluFlags, cpsr_out => cpsr_out);
-		
+	condex : condlogic port map(cond => cond, flags => cpsr_out, doInstruction => doInstruction);
+	
 	process(all) begin
 		case op is
 			when "00" =>
-				--cond  - shouldn't be exported
-				--op  - keep the same
 				useImm <= useImm_decoded;
 				aluCommand <= aluCommand_decoded;
-				--Rn - keep same
-				--Rd - keep same
-				--Rm - keep same
-				--imm12 - keep same
-				writeToRam <= '0';
-				writeToReg <= '0' when Rd = 4d"15" else '1';
+				writeToRam <= '0' and doInstruction;
+				writeToReg <= '0' when Rd = 4d"15" else ('1' and doInstruction);
     
 				cpsr_enable <= "1111" when (FlagWrite = '1' and -- Case 1: ADD/SUB/RSB
 												(aluCommand_decoded = "0010" or
@@ -82,8 +85,8 @@ begin
 			when "01" =>
 				useImm <= '1';
 				aluCommand <= 4b"0100";
-				writeToRam <= not(performLoad);
-				writeToReg <= performLoad;
+				writeToRam <= not(performLoad) and doInstruction;
+				writeToReg <= performLoad and doInstruction;
 				cpsr_enable <= "0000";
 			when "10" =>
 				useImm <= '1';
