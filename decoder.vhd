@@ -14,38 +14,30 @@ port(
 	Rn : out unsigned(3 downto 0);
 	Rd : out unsigned(3 downto 0);
 	Rm : out unsigned(3 downto 0);
-	imm12 : out std_logic_vector(11 downto 0);
-	writeToRam : out std_logic;
-	writeToReg : out std_logic
+	imm : out std_logic_vector(23 downto 0);
+	performLoad : out std_logic;
+	FlagWrite:out std_logic
 );
 
 end;
 
 
 architecture synth of decoder is
-	signal isMemOp : std_logic;
-	signal aluCommand_raw : std_logic_vector(3 downto 0);
-	signal useImm_raw : std_logic;
 begin
 	cond <= instruction(31 downto 28);
 	op <= instruction(27 downto 26);
+	imm <= instruction(23 downto 0);
 	
 	-- "Data-processing" encoding
-	useImm_raw <= instruction(25) or isMemOp;
-	aluCommand_raw <= instruction(24 downto 21);
+	useImm <= instruction(25);
+	aluCommand <= instruction(24 downto 21);
 	Rn <= unsigned(instruction(19 downto 16));
 	Rd <= unsigned(instruction(15 downto 12));
 	Rm <= unsigned(instruction(3 downto 0));
-	imm12 <= instruction(11 downto 0);
+	FlagWrite <= instruction(20);
 	
 	-- "Memory" encoding (Rn and Rm stay the same)
-	isMemOp <= '1' when op = "01" else '0';
-	writeToRam <= '1' when (not(instruction(20)) and isMemOp) else '0';
-	useImm <= useImm_raw or isMemOp; --For memory operations, we always use the immediate value
-	aluCommand <= 4b"0100" when isMemOp else aluCommand_raw; -- For memory operations, we always add imm and Rn
+	performLoad <= instruction(20);
 	-- "Branch" encoding
 	-- imm24 <= instruction(23 downto 0);
-	
-	-- Don't write to register if (a) there is a "STR" instruction, or (b) Rd = 15
-	writeToReg <= '0' when (writeToRam = '1' or Rd = 4d"15") else '1';
 end;
